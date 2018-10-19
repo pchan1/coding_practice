@@ -1,0 +1,86 @@
+import java.util.*;
+/*
+       1
+     /   \
+    2     3
+   / \   / \
+  4   5 6   7
+  
+       1
+     /   \
+    2     3
+   / \   / \
+  4   5 6   7
+  8 9 10 11 12 13 14 15 
+  
+  
+  What is a complete tree?
+*/
+class Main {
+  static class TreeNode {
+    TreeNode left;
+    TreeNode right;
+  }
+  
+  static private boolean isIndexInTree(TreeNode root, int index) {
+    if (index < 1 || root == null) {
+      throw new IllegalArgumentException();
+    }
+    if (index == 1) { return true; }
+    /*Stack<Boolean> path = new Stack<Boolean>();*/
+    int cur = index;
+    int bits = 0;
+    int cnt = 0;
+    while (cur > 1) {
+      if (cur % 2 == 0) {
+        bits += 1;
+        /*path.push(true);*/
+      } else {
+        /*path.push(false);*/
+      }
+      cur = cur/2;
+      bits <<= 1;
+      cnt++;
+    }
+    TreeNode curNode = root;
+    while (/*!path.isEmpty() && */cnt > 0 && curNode != null) {
+      /*Boolean isLeft = path.pop();*/
+      boolean isLeft = ((bits & 1) == 1);
+      if (isLeft) {
+        curNode = curNode.left;
+      } else {
+        curNode = curNode.right;
+      }
+      bits >>= 1;
+      cnt--;
+    }
+    
+    return curNode != null;
+  }
+  
+  static public void main( String args[] ) {
+    TreeNode root1 = buildTree1();
+    for (int i = 1; i < 10; i++) {
+      System.out.println(i + ": " + isIndexInTree(root1, i));
+    }
+  }
+  
+  static private int treeSize(TreeNode root) {
+    if (root == null) {
+      return 0;
+    }
+    
+    return 1 + treeSize(root.left) + treeSize(root.right);
+  }
+  
+  static private TreeNode buildTree1() {
+    TreeNode root = new TreeNode();
+    root.left = new TreeNode();
+    root.right = new TreeNode();
+    root.left.left = new TreeNode();
+    root.left.right = new TreeNode();
+    root.right.left = new TreeNode();
+    root.right.right = new TreeNode();
+    return root;
+  }
+}
