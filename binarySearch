@@ -1,0 +1,23 @@
+public class Main {
+    public static boolean contains(int[] arr, int x) {
+        if (arr == null | arr.length == 0) { return false; }
+        int start = 0;
+        int end = arr.length - 1;
+        
+        while (start <= end) {
+            int pivot = start + (end - start)/2;
+            
+            if (arr[pivot] == x) return true;
+            if (arr[pivot] < x) {
+                start = pivot + 1;
+            } else {
+                end = pivot - 1;
+            }
+        }
+        return false;
+    }
+    public static void main(String[] args) {
+        int[] arr = new int[]{-7, 1, 7};
+        System.out.println(contains(arr, -7));
+    }
+}
