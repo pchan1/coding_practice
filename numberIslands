@@ -1,0 +1,67 @@
+import java.io.*;
+import java.util.*;
+
+class Solution {
+
+  static int getNumberOfIslands(int[][] binaryMatrix) {
+    int n = binaryMatrix.length; int cnt = 0;
+    
+    for (int row = 0; row < n; row++) {
+      for (int col = 0; col < n; col++) {
+        System.out.println("row: " + row + ", col: " + col);
+        if (binaryMatrix[row][col] == 1) {
+          ++cnt;
+          expand(row, col, binaryMatrix, n);
+          System.out.println("IM IN");
+        }
+      }
+    }
+    return cnt;
+  }
+
+  static void expand(int row, int col, int[][] binaryMatrix, int n) {
+    binaryMatrix[row][col] = -1;
+    
+    // Up
+    if (row - 1 >= 0 && binaryMatrix[row - 1][col] == 1) {
+       System.out.println("UP");
+      expand(row - 1, col, binaryMatrix, n);
+    } 
+    // Down
+    if (row + 1 < n && binaryMatrix[row + 1][col] == 1) {
+      System.out.println("DOWN");
+      expand(row + 1, col, binaryMatrix, n);
+    } 
+    // Left
+    if (col - 1 >= 0 && binaryMatrix[row][col - 1] == 1) {
+      System.out.println("LEFT");
+      expand(row, col - 1, binaryMatrix, n);
+    } 
+    // Right
+    if (col + 1 < n && binaryMatrix[row][col + 1] == 1) {
+      System.out.println("RIGHT");
+      expand(row, col + 1, binaryMatrix, n);
+    } 
+  }
+  public static void main(String[] args) {
+    int[][] binaryMatrix = new int[][] {{0,    1,    0,    1,    0},
+                                        {0,    0,    1,    1,    1},
+                                        {1,    0,    0,    1,    0},
+                                        {0,    1,    1,    0,    0},
+                                        {1,    0,    1,    0,    1}};
+    System.out.println("HI");
+    
+
+    System.out.println(getNumberOfIslands(binaryMatrix));
+  }
+
+}
+/*
+For every cell, if it is 1, then expand (while expanding don't visit things you already visited) and cnt++
+input:  binaryMatrix = [ [0,    1,    0,    1,    0],
+                         [0,    0,    1,    1,    1],
+                         [1,    0,    0,    1,    0],
+                         [0,    1,    1,    0,    0],
+                         [1,    0,    1,    0,    1] ]
+                         
+*/
