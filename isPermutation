@@ -20,7 +20,22 @@ public class Main {
         }
         return true;
     }
+
+    public static String sort(String s) {
+        char[] charString = s.toCharArray();
+        Arrays.sort(charString);
+        return new String(charString);
+    }
+ 
+    public static boolean isPermutation2(String a, String b) {
+        if (a.length() != b.length()) {
+            return false;
+        }
+        return sort(a).equals(sort(b));
+        // return a.sort() == b.sort();
+    }
+
     public static void main(String[] args) {
-        System.out.println(isPermutation("abcc", "cbac"));
+        System.out.println(isPermutation2("abcc", "cbac"));
     }
 }
